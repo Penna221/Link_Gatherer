@@ -28,10 +28,17 @@ public class Factory {
 
         //Generate data from array
         for(Data d : array){
-            newContent += "\t\t<div class=\"data\">\n";
+            if(d.link.toString().contains("iltalehti")){
+                newContent += "\t\t<div class=\"data iltalehti\">\n";
+            }else if(d.link.toString().contains("iltasanomat"))
+                newContent += "\t\t<div class=\"data iltasanomat\">\n";
+            else{
+                newContent += "\t\t<div class=\"data\">\n";
+            }
             
             newContent += "\t\t\t<h1>"+d.header + "</h1>\n";
             newContent += "\t\t\t<a href=\""+ d.link +"\">Read</a>\n";
+            
             
             newContent += "\t\t</div>\n";
         }

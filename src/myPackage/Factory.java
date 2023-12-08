@@ -36,8 +36,9 @@ public class Factory {
                 newContent += "\t\t<div class=\"data\">\n";
             }
             
+            newContent += "\t\t\t<a href=\""+ d.link +"\">\n";
             newContent += "\t\t\t<h1>"+d.header + "</h1>\n";
-            newContent += "\t\t\t<a href=\""+ d.link +"\">Read</a>\n";
+            newContent += "\t\t\t</a>\n";
             
             
             newContent += "\t\t</div>\n";

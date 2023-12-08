@@ -14,6 +14,7 @@ body{
     width: 30%;
     padding: 10px;
     color:black;
+    transition: transform 0.2s ease-in-out;
 }
 .data h1{
     font-size: 25px;
@@ -21,8 +22,14 @@ body{
 .data a {
     font-size: large;
     text-decoration: none;
-    color: white;
+    color: black;
 }
+.data:hover {
+    animation: hover ease-in;
+    transform: scale(1.2);
+    color:yellow
+}
+
 .iltalehti{
     background-color: lightcoral;
 }

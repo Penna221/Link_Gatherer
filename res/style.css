@@ -1,6 +1,25 @@
 body{
     background-color: blueviolet;
 }
+#container{
+    background-color: black;
+    text-align: center;
+    padding:1px;
+}
 .data {
-    border-style: solid;
+    border-style: dashed;
+    
+    background-color: gray;
+    margin: auto;
+    width: 30%;
+    padding: 10px;
+    color:black;
+}
+.data h1{
+    font-size: 25px;
+}
+.data a {
+    font-size: large;
+    text-decoration: none;
+    color: white;
 }

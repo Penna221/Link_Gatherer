@@ -24,16 +24,16 @@ public class Factory {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String newContent = "<div id=\"container\">";
+        String newContent = "<div id=\"container\">\n";
 
         //Generate data from array
         for(Data d : array){
-            newContent += "<div class=\"data\">\n";
+            newContent += "\t\t<div class=\"data\">\n";
             
-            newContent += "<h1>"+d.header + "</h1>\n";
-            newContent += "<a href=\""+ d.link +"\">Read</a>\n";
+            newContent += "\t\t\t<h1>"+d.header + "</h1>\n";
+            newContent += "\t\t\t<a href=\""+ d.link +"\">Read</a>\n";
             
-            newContent += "</div>\n";
+            newContent += "\t\t</div>\n";
         }
 
 

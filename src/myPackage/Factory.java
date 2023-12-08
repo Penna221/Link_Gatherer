@@ -5,10 +5,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 public class Factory {
     
-    public void formHTML(Data[] array){
+    public void formHTML(ArrayList<Data> array){
         String html = "";
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
         try {
@@ -22,13 +24,27 @@ public class Factory {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        html = html.replace("<div id=\"data\"></div", "<div>Test</div>");
+        String newContent = "<div id=\"container\">";
+
+        //Generate data from array
+        for(Data d : array){
+            newContent += "<div class=\"data\">\n";
+            
+            newContent += "<h1>"+d.header + "</h1>\n";
+            newContent += "<a href=\""+ d.link +"\">Read</a>\n";
+            
+            newContent += "</div>\n";
+        }
+
+
+        newContent += "</div>\n";
+        html = html.replace("<div id=\"data\"></div>", newContent);
         System.out.println(html);
         write(html,new File("res\\todaysTopics.html"));
     }
     private void write(String txt, File f){
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(f));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(f,Charset.forName("UTF-8")));
             writer.write(txt);
 
             writer.close();

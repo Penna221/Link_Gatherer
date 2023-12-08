@@ -5,8 +5,12 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Calendar;
-
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 /**
  * Gatherer
  */
@@ -37,25 +41,32 @@ public class Gatherer {
         int month = c.get(Calendar.MONTH) +1;
         int year = c.get(Calendar.YEAR);
         dateString += day + "." + month + "." + year;
-        
+        ArrayList<Data> allData = new ArrayList<Data>();
         System.out.println(dateString);
         for(URL url : sites){
             System.out.println("Finding links from " +url);
-            //Data[] data = findData(url);
+            ArrayList<Data> data = findData(url);
+            allData.addAll(data);
         }
-        f.formHTML(null);
+        f.formHTML(allData);
     }
-    public Data[] findData(URL url){
-        Data[] array = new Data[1];
-        Data d = new Data(url,"Iltalehti");
-        array[0] = d;
+    public ArrayList<Data> findData(URL url){
+        ArrayList<Data> array = new ArrayList<Data>();
         try {
-            URLConnection yc = url.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) 
-                System.out.println(inputLine);
-            in.close();
+            Document doc = Jsoup.parse(url.openStream(), "UTF-8", url.toString());
+            Element element = doc.getElementById("news-container");
+            Elements e = element.select("div main div div.main-column-content.show-true div.front div");
+            Elements links = e.select("a");
+            
+            for (Element child : links) {
+                String link = child.attributes().get("href");
+                String title = child.select("div.front-title").text();
+                System.out.println("title:  " + title);
+                System.out.println("link:  " + link);
+                Data d = new Data(new URL("https:/www.iltalehti.fi"+link),title);
+                array.add(d);
+            }
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
